@@ -1,15 +1,16 @@
 pipeline {
-  agent any
-  stages {
-    stage('First stage'){
-      steps {
-        echo "I'm runing"  
-      }
+    agent any
+    stages {
+        stage ("Get git") {
+            steps {
+                git "https://github.com/Andrey-Medvedtsev/example-playbook.git"
+                
+            }
+        }
+        stage(" execute Ansible") {
+           steps {
+                ansiblePlaybook installation: 'ansible', playbook: 'site.yml'
+            }    
+        }    
     }
-    stage('Second stage'){
-      steps {
-        echo "And I'm too"
-      }
-    }
-  }
 }
